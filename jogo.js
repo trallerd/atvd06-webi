@@ -28,9 +28,42 @@ const elementos = {
 };
 
 const palavras = {
-  facil: ['anciã', 'série', 'avaro', 'maior', 'noite', 'ímpar', 'salvo', 'vetor', 'prado', 'pecha'],
-  medio: ['cônjuge', 'exceção', 'efêmero', 'prolixo', 'idílico', 'análogo', 'caráter', 'genuíno', 'estória', 'sublime'],
-  dificil: ['concepção', 'plenitude', 'essencial', 'hipócrita', 'corolário', 'paradigma', 'dicotomia', 'hegemonia', 'ratificar', 'propósito'],
+  facil: [
+    { palavra: 'anciã', dica: 'pessoa idosa' },
+    { palavra: 'série', dica: 'entretenimento televisivo' },
+    { palavra: 'avaro', dica: 'AVARENTO' },
+    { palavra: 'maior', dica: 'Que não é pequeno' },
+    { palavra: 'noite', dica: 'contrario de dia' },
+    { palavra: 'ímpar', dica: 'contrario de par' },
+    { palavra: 'salvo', dica: 'contrario de perdido' },
+    { palavra: 'vetor', dica: 'geometria' },
+    { palavra: 'prado', dica: 'municipio do estado da Bahia' },
+    { palavra: 'pecha', dica: 'O mesmo que percha' },
+  ],
+  medio: [
+    { palavra: 'cônjuge', dica: 'casal' },
+    { palavra: 'exceção', dica: 'não é regra' },
+    { palavra: 'efêmero', dica: 'que dura um dia' },
+    { palavra: 'prolixo', dica: 'que não sabe sintetizar o pensamento' },
+    { palavra: 'idílico', dica: 'relativo a ou que tem o caráter de idílio' },
+    { palavra: 'análogo', dica: 'referente a analogia' },
+    { palavra: 'caráter', dica: 'sinal' },
+    { palavra: 'genuíno', dica: 'verdadeiro' },
+    { palavra: 'estória', dica: 'narrativa de cunho popular e tradicional' },
+    { palavra: 'sublime', dica: 'elevado' },
+  ],
+  dificil: [
+    { palavra: 'concepção', dica: 'criação' },
+    { palavra: 'plenitude', dica: 'integridade' },
+    { palavra: 'essencial', dica: 'primordial' },
+    { palavra: 'hipócrita', dica: 'ato de fingir ter crenças, virtudes' },
+    { palavra: 'corolário', dica: 'afirmação deduzida de uma verdade já demonstrada' },
+    { palavra: 'paradigma', dica: ' conceito das ciências e da epistemologia que define um exemplo típico ou modelo de algo' },
+    { palavra: 'dicotomia', dica: 'é uma partição de um todo em duas partes' },
+    { palavra: 'hegemonia', dica: 'supremacia' },
+    { palavra: 'ratificar', dica: 'confirmar' },
+    { palavra: 'propósito', dica: 'intensão' },
+  ],
 };
 
 const novoJogo = () => {
@@ -137,7 +170,8 @@ const mostrarMensagem = vitoria => {
 
 const sortearPalavra = () => {
   const i = Math.floor(Math.random() * palavras[jogo.dificuldade].length);
-  const palavra = palavras[jogo.dificuldade][i];
+  const palavra = palavras[jogo.dificuldade][i].palavra;
+  document.querySelector('.dica').textContent = palavras[jogo.dificuldade][i].dica;
   jogo.definirPalavra(palavra);
 
   console.log(jogo.palavra.original);
@@ -167,23 +201,24 @@ const cenaPalavra = () => {
   elementos.telaInicial.style.display = 'none';
   elementos.telaCadastra.style.display = 'flex';
   elementos.telaJogo.style.display = 'none';
-}
+};
 
 const cadastraPalavras = () => {
-  let palav = document.querySelector('#input-palavra')
-  let dificult = document.querySelector('#select-dificuldade')
-  if(dificult.value == 'facil'){
-    palavras.facil.push(palav.value)
-    novoJogo()
-  }else if(dificult.value == 'medio'){
-    palavras.medio.push(palav.value)
-    novoJogo()
-  }if(dificult.value == 'dificil'){
-    palavras.dificil.push(palav.value)
-    novoJogo()
+  let palav = document.querySelector('#input-palavra');
+  let dificult = document.querySelector('#select-dificuldade');
+  let dic = document.querySelector('#input-dica');
+  if (dificult.value == 'facil') {
+    palavras.facil.push({palavra: palav.value, dica: dic.value});
+    novoJogo();
+  } else if (dificult.value == 'medio') {
+    palavras.medio.push({palavra: palav.value, dica: dic.value});
+    novoJogo();
   }
-
-}
+  if (dificult.value == 'dificil') {
+    palavras.dificil.push({palavra: palav.value, dica: dic.value});
+    novoJogo();
+  }
+};
 
 const replace = (str, i, newChar) => str.substring(0, i) + newChar + str.substring(i + 1);
 
