@@ -167,6 +167,21 @@ const cenaPalavra = () => {
   elementos.telaInicial.style.display = 'none';
   elementos.telaCadastra.style.display = 'flex';
   elementos.telaJogo.style.display = 'none';
+}
+
+const cadastraPalavras = () => {
+  let palav = document.querySelector('#input-palavra')
+  let dificult = document.querySelector('#select-dificuldade')
+  if(dificult.value == 'facil'){
+    palavras.facil.push(palav.value)
+    novoJogo()
+  }else if(dificult.value == 'medio'){
+    palavras.medio.push(palav.value)
+    novoJogo()
+  }if(dificult.value == 'dificil'){
+    palavras.dificil.push(palav.value)
+    novoJogo()
+  }
 
 }
 
@@ -177,7 +192,7 @@ elementos.botoes.medio.addEventListener('click', () => iniciarJogo('medio'));
 elementos.botoes.dificil.addEventListener('click', () => iniciarJogo('dificil'));
 elementos.botoes.cena.addEventListener('click', () => cenaPalavra());
 elementos.botoes.volta.addEventListener('click', () => novoJogo());
-elementos.botoes.cadastra.addEventListener('click', () => novoJogo());
+elementos.botoes.cadastra.addEventListener('click', () => cadastraPalavras());
 
 elementos.botoes.reiniciar.addEventListener('click', () => novoJogo());
 
