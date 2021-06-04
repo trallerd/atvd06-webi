@@ -135,6 +135,25 @@ const criarTeclado = () => {
 
     elementos.teclado.appendChild(button);
 
+    document.addEventListener('keydown', event => {
+      if (!jogo.jogadas.includes(event.key) && !jogo.acabou()) {
+        const acertou = jogo.jogar(event.key);
+        jogo.jogadas.push(event.key);
+        button.classList.add(acertou ? 'certo' : 'errado');
+        mostrarPalavra();
+
+        if (!acertou) {
+          mostrarErro();
+        }
+
+        if (jogo.ganhou()) {
+          mostrarMensagem(true);
+        } else if (jogo.perdeu()) {
+          mostrarMensagem(false);
+        }
+      }
+    });
+
     button.addEventListener('click', () => {
       if (!jogo.jogadas.includes(letra) && !jogo.acabou()) {
         const acertou = jogo.jogar(letra);
@@ -208,14 +227,14 @@ const cadastraPalavras = () => {
   let dificult = document.querySelector('#select-dificuldade');
   let dic = document.querySelector('#input-dica');
   if (dificult.value == 'facil') {
-    palavras.facil.push({palavra: palav.value, dica: dic.value});
+    palavras.facil.push({ palavra: palav.value, dica: dic.value });
     novoJogo();
   } else if (dificult.value == 'medio') {
-    palavras.medio.push({palavra: palav.value, dica: dic.value});
+    palavras.medio.push({ palavra: palav.value, dica: dic.value });
     novoJogo();
   }
   if (dificult.value == 'dificil') {
-    palavras.dificil.push({palavra: palav.value, dica: dic.value});
+    palavras.dificil.push({ palavra: palav.value, dica: dic.value });
     novoJogo();
   }
 };
